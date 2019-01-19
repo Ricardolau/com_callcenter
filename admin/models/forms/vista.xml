@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+  <fieldset>
+
+		<field name="id"
+			type="text"
+			label="JGLOBAL_FIELD_ID_LABEL"
+			description="JGLOBAL_FIELD_ID_DESC"
+			size="10"
+			default="0"
+			readonly="true"
+			class="readonly"
+		/>
+			
+		<field name="nombre"
+			type="text"
+			label="COM_CALLCENTER_NOMBRE_LABEL"
+			description="COM_CALLCENTER_NOMBRE_DESC"
+			class="inputbox"
+			size="30"
+			required="true"
+		 />
+
+		<field name="apellidos"
+			type="text"
+			label="COM_CALLCENTER_APELLIDOS_LABEL"
+			description="COM_CALLCENTER_APELLIDOS_DESC"
+			class="inputbox"
+			size="30"
+			required="true"
+		/>
+
+        </fieldset>
+</form>

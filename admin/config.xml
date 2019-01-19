@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	
+	<fieldset name="CALLCENTER"
+		label="COM_CALLCENTER_CONFIG_LABEL"
+		description="COM_CALLCENTER_OPCIONES_DESC"
+	>
+	<field name="url"
+			type="textarea"
+			label="COM_CALLCENTER_CONFIG_URL_LABEL"
+			rows="3"
+			cols="30"
+			description="COM_CALLCENTER_CONFIG_URL_DESC"
+		/>
+	</fieldset>
+	
+
+	
+	<fieldset
+		name="permissions"
+		label="JCONFIG_PERMISSIONS_LABEL"
+		description="JCONFIG_PERMISSIONS_DESC"
+		>
+
+		<field
+			name="rules"
+			type="rules"
+			label="JCONFIG_PERMISSIONS_LABEL"
+			filter="rules"
+			validate="rules"
+			component="com_callcentera"
+			section="component"/>
+	</fieldset>
+</config>

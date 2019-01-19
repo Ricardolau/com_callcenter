@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Añadimos los campo queremos mostrar en la vista de codigorecibo
+	que la vista entrada de datos -->
+<form>
+	<fieldset name="callcenter" label="COM_CALLCENTER_FORM_LABEL">
+		
+		<field name="firstname"
+			type="text"
+			id="callcenter-nombre"
+			label="COM_CALLCENTER_NOMBRE_LABEL"
+			description="COM_CALLCENTER_NOMBRE_DESC"
+			filter="string"
+			required="true"
+			size="30"
+		/>
+		<field name="lastname"
+			type="text"
+			id="callcenter-apellidos"
+			label="COM_CALLCENTER_APELLIDOS_LABEL"
+			description="COM_CALLCENTER_APELLIDOS_DESC"
+			filter="string"
+			required="true"
+			size="30"
+		/>
+        <field name="_customer_number"
+			type="text"
+			id="callcenter-telefono"
+			label="COM_CALLCENTER_TELEFONO_LABEL"
+			description="COM_CALLCENTER_TELEFONO_DESC"
+			filter="string"
+			required="true"
+			size="30"
+		/>
+        <field name="observaciones"
+			type="textarea"
+			id="callcenter-observaciones"
+			label="COM_CALLCENTER_OBSERVACIONES_LABEL"
+			description="COM_CALLCENTER_OBSERVACIONES_DESC"
+			filter="string"
+			required="false"
+			cols="50"
+			rows="10"
+		/>
+
+	</fieldset>
+</form>
+

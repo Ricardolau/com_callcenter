@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.6.0" method="upgrade">
+	<name>com_callcenter</name>
+	<author>Ricardo Carpintero</author>
+	<creationDate>2018</creationDate>
+	<copyright>(C) 2015 Soluciones Vigo	</copyright>
+	<license>GNU General Public License version 2 or later; see	LICENSE.txt</license>
+	<authorEmail>info@solucionesvigo.com</authorEmail>
+	<authorUrl>www.joomla.org</authorUrl>
+	<version>1.0.0</version>
+	<description>COM_CALLCENTER_XML_DESCRIPTION</description>
+	
+	<install> 
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.sql</file>
+		</sql>
+	</install>
+	<uninstall> 
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.sql</file>
+		</sql>
+	</uninstall>
+
+
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>controller.php</filename>	
+		<filename>callcenter.php</filename>
+		
+		<folder>views</folder>
+		<folder>models</folder>
+		<folder>controllers</folder>
+		
+	</files>
+	<languages folder="site">
+		<language tag="es-ES">language/es-ES.com_callcenter.ini</language>
+   		<language tag="gl-ES">language/gl-ES.com_callcenter.ini</language>
+		<language tag="en-GB">language/en-GB.com_callcenter.ini</language>
+	</languages>
+    
+	<administration>
+		
+		<!--Nombre que se muestra en la pestaña de componentes-->
+		<menu>Call Center</menu>
+		
+		<files folder="admin">
+			<filename>index.html</filename>					
+			<filename>callcenter.php</filename>			
+			<filename>controller.php</filename>	
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+		
+			<folder>sql</folder>
+			<folder>models</folder>
+			<folder>views</folder>
+			<folder>tables</folder>		
+			<folder>controllers</folder>
+							
+		</files>
+		<languages folder="admin">
+			<language tag="es-ES">language/es-ES.com_callcenter.ini</language>
+			<language tag="es-ES">language/es-ES.com_callcenter.sys.ini</language>
+            <language tag="gl-ES">language/gl-ES.com_callcenter.ini</language>
+			<language tag="gl-ES">language/gl-ES.com_callcenter.sys.ini</language>
+            <language tag="en-GB">language/en-GB.com_callcenter.ini</language>
+			<language tag="en-GB">language/en-GB.com_callcenter.sys.ini</language>
+		</languages>
+	</administration>
+</extension>
