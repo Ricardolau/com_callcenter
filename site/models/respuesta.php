@@ -17,7 +17,8 @@ class CallcenterModelRespuesta extends JModelList
 			
 			//~ $envio = JRequest::getVar('jform', array(), 'get', 'array');
 			// JRequest en las versiones superiores de 3.3 se dejaron... 
-			$jinput = JFactory::getApplication()->input; 
+            $app = JFactory::getApplication();
+            $jinput = $app->input; 
 			$data =$jinput->getArray($_POST);;
 			$datos = $data['jform'];
             // Comprobamos si intentos es 1 , porque si es mas, quiere decir que
@@ -31,10 +32,10 @@ class CallcenterModelRespuesta extends JModelList
                 $session->set('grabado',$g['resul']);
             }
             // Ahora hacemos la peticion por curl
-            //~ $ruta = 'http://homer.superoliva.es/beta/Php/Ejemplo_Api-php/enServidor/recibirPost.php';
-
-            $ruta = 'https://cx.bosch-so.com/ence-callback';
-
+            //~ $ruta = JText::_('COM_CALLCENTER_DEFAULT_CALLCENTER')
+            
+            $componentParams = $app->getParams('com_callcenter');
+            $ruta = $componentParams->get('url_envio');
             $ch = curl_init($ruta);
             // Especificamos cabecera.
             
@@ -66,7 +67,8 @@ class CallcenterModelRespuesta extends JModelList
             
 			
 			$this->resultado = $datos;
-			return $this->resultado;
+            $this->resultado['ruta'] = $ruta;
+            return $this->resultado;
 			
 	}
 
@@ -78,7 +80,7 @@ class CallcenterModelRespuesta extends JModelList
                     ."('".$datos['firstname']."',"
                     ."'".$datos['lastname']."',"
                     ."'".$datos['_customer_number']."',"
-                    ."'".$datos['observaciones']."',"
+                    ."'".$datos['message']."',"
                     ."NOW(),"
                     ."'1')";
                 $db->setQuery($query);

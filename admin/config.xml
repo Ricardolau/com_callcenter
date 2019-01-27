@@ -5,13 +5,16 @@
 		label="COM_CALLCENTER_CONFIG_LABEL"
 		description="COM_CALLCENTER_OPCIONES_DESC"
 	>
-	<field name="url"
-			type="textarea"
-			label="COM_CALLCENTER_CONFIG_URL_LABEL"
-			rows="3"
-			cols="30"
-			description="COM_CALLCENTER_CONFIG_URL_DESC"
+	<field name="url_envio"
+			type="text"
+			label="COM_CALLCENTER_CONFIG_URLENVIO_LABEL"
+			description="COM_CALLCENTER_CONFIG_URLENVIO_DESC"
 		/>
+     <field name="url_comprobar"
+			type="text"
+			label="COM_CALLCENTER_CONFIG_URLCOMPROBAR_LABEL"
+			description="COM_CALLCENTER_CONFIG_URLCOMPROBAR_DESC"
+		/>   
 	</fieldset>
 	
 
