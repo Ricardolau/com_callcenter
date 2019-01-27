@@ -11,10 +11,13 @@ class CallcenterViewRespuesta extends JViewLegacy
 	
 	function display($tpl = null)
 	{
-        $input = JFactory::getApplication()->input;
+        $this->resultado = $this->get('Comprobar');
 
-		//~ // Get the data from POST
-		$this->resultado = JRequest::getVar('jform', array(), 'post', 'array');
+        //~ $input = JFactory::getApplication()->input;
+
+		// Get the data from POST
+        
+		//~ $this->resultado = JRequest::getVar('jform', array(), 'post', 'array');
         echo '<pre>';
         print_r($this->resultado);
         echo '</pre>';

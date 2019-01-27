@@ -3,11 +3,17 @@
 defined('_JEXEC') or die;
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.tooltip');
- if (isset($this->error)) : ?>
-	<div class="contact-error">
-		<?php echo $this->error; ?>
-	</div>
-<?php endif; ?>
+
+if (isset($this->resultado))
+{
+    // Carga valores que pusl con anterioridad.
+    $this->form->setValue('firstname','',$this->resultado['firstname']);
+    $this->form->setValue('lastname','',$this->resultado['lastname']);
+    $this->form->setValue('_customer_number','',$this->resultado['_customer_number']);
+    $this->form->setValue('observaciones','',$this->resultado['observaciones']);
+
+}
+?>
 <div class="callcenter-form">
 	<form id="callcenter-form" action="<?php echo JRoute::_('index.php'); ?>" method="post" class="form-validate form well">
 		<fieldset>

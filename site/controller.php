@@ -30,9 +30,25 @@ class CallcenterController extends JControllerLegacy
 		//~ // Get the data from POST
 		$this->resultado = JRequest::getVar('jform', array(), 'post', 'array');
         // Ahora comprobamos datos son correctos antes de enviar Call Center
+        $session = JFactory::getSession();
+        // Comprobamos si la session ya envio el formulario.
+        if ($session->get('intentos'))
+        {
+            // Quiere decir que ya se mando el formulario .
+            $intentos = $session->get('intentos') + 1;
+            $session->set('intentos',$intentos);
+        }  else {
+            $session->set('intentos',1);
+        }
+
         $this->comprobarDatos();
         if ($this->resultado['estado'] !== 'Error') {
             $this->set('view', 'respuesta');
+            // Reseteamos intentos.
+            $session->set('intentos',1);
+        } else {
+            $this->set('view', 'callcenter');
+
         }
     
 		return ;
@@ -49,10 +65,14 @@ class CallcenterController extends JControllerLegacy
             $this->resultado['estado']= 'SinEnviar';
         }else{
             $this->resultado['estado']= 'Error';
+            $this->resultado['error'] = 'Esta mal el telefono';
+            $aviso = array( 'type' => 'warning',
+                        'texto'  => 'Error en :'.$this->resultado['error']
+                );
+                JFactory::getApplication()->enqueueMessage($aviso['texto'], $aviso['type']);
         } 
         
         return ;
     }
-
 
 }

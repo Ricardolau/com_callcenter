@@ -13,11 +13,7 @@ defined('_JEXEC') or die('Restricted Access');
 </h1>
     <div class="formulario" style="display: table;margin: 0 auto;">
    <?php
-        echo '<pre>';
-        print_r($this->document->base);
-        echo '</pre>';
-
-        echo $this->loadTemplate('form');
+       echo $this->loadTemplate('form');
     ?>
     </div>
 </div>
