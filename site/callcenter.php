@@ -9,7 +9,6 @@ $controller = JControllerLegacy::getInstance('Callcenter');
 $controller->execute(JFactory::getApplication()->input->get('task'));
 // Si existe resultado , entonces asignamos vista...
 if  (isset($controller->resultado)){
-    echo 'hay resultado';
     $view = $controller->view;
     $controller->execute(JFactory::getApplication()->input->set('view', $view));
 }

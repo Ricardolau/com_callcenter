@@ -25,9 +25,7 @@ class CallcenterController extends JControllerLegacy
 	public function submit()
 	{
         // Llega aqui al pulsar en  enviar desde vista call center
-        //~ $input = JFactory::getApplication()->input;
-
-		//~ // Get the data from POST
+        // Get the data from POST
 		$this->resultado = JRequest::getVar('jform', array(), 'post', 'array');
         // Ahora comprobamos datos son correctos antes de enviar Call Center
         $session = JFactory::getSession();
@@ -75,4 +73,17 @@ class CallcenterController extends JControllerLegacy
         return ;
     }
 
+
+    public function parametros(){
+        // Obtenemos parametros del componente.
+        $app = JFactory::getApplication();
+        // Nosotros vamos comprobar si esta operativo el callCenter.
+        // Obtenemos parametros del componente.
+        $componentParams = $app->getParams('com_callcenter');
+
+        return $componentParams;
+    }
+
 }
+
+

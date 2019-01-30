@@ -12,17 +12,26 @@ class CallcenterViewRespuesta extends JViewLegacy
 	function display($tpl = null)
 	{
         $this->resultado = $this->get('Comprobar');
-
-        //~ $input = JFactory::getApplication()->input;
-
-		// Get the data from POST
-        
-		//~ $this->resultado = JRequest::getVar('jform', array(), 'post', 'array');
-        echo '<pre>';
-        print_r($this->resultado);
-        echo '</pre>';
+        $params = $this->obtenerParametros();
+        if ($params->get('debug') === '1'){
+            // Mostramos respuesta si Debug activo
+            echo '<pre>';
+            echo 'debug de view/respuesta/view.html';
+            print_r($this->resultado);
+            echo '</pre>';
+        }
 		//display de la vista
 		parent::display($tpl);
 	}
+
+    public function obtenerParametros () {
+        $app = JFactory::getApplication();
+        // Nosotros vamos comprobar si esta operativo el callCenter.
+        // Obtenemos parametros del componente.
+        $params = $app->getParams('com_callcenter');
+		//~ $this->assignRef('params',		$params);
+        return $params;
+
+    }
 	
 }

@@ -15,8 +15,6 @@ class CallcenterModelRespuesta extends JModelList
 	public function getComprobar()
 	{
 			
-			//~ $envio = JRequest::getVar('jform', array(), 'get', 'array');
-			// JRequest en las versiones superiores de 3.3 se dejaron... 
             $app = JFactory::getApplication();
             $jinput = $app->input; 
 			$data =$jinput->getArray($_POST);;
@@ -29,11 +27,14 @@ class CallcenterModelRespuesta extends JModelList
             {
                 // Grabamos.
                 $g  = $this->grabar($datos);
+                echo '<pre>';
+                echo 'Grabar';
+                echo print_r($g);
+                echo '</pre>';
                 $session->set('grabado',$g['resul']);
+                $id = $g['resul']['id'];
             }
             // Ahora hacemos la peticion por curl
-            //~ $ruta = JText::_('COM_CALLCENTER_DEFAULT_CALLCENTER')
-            
             $componentParams = $app->getParams('com_callcenter');
             $ruta = $componentParams->get('url_envio');
             $ch = curl_init($ruta);
@@ -56,18 +57,23 @@ class CallcenterModelRespuesta extends JModelList
             //recogemos la respuesta
             $datos['curl'] = curl_exec ($ch);
             curl_close($ch); 
-            //~ echo '<pre>';
-            //~ echo 'Despues de curl';
-            //~ print_r($datos);
-            //~ echo '<pre>';
-            // Como ya hizo los proceso y no vuelva a grabar lo que hacemos es añadir 1 el contador intentos.
-            
+            // De momento no esta operativo el repetir.            
             $intentos = $session->get('intentos') + 1;
             $session->set('intentos',$intentos);
-            
-			
+            // Si  fue correcta
+            if  (isset($datos['_ok_title'])){
+                if ($datos['_ok_title'] ==='Ok'){
+                // Fue correcta la petición el estado es 'Enviado'
+                    $e = $this->cambioEstado($id,'Enviado');
+                    echo '<pre>';
+                    echo 'Cambio estado';
+                    echo print_r($e);
+                    echo '</pre>';
+                }
+            }
+			$datos['session'] =$session->get('grabado');
 			$this->resultado = $datos;
-            $this->resultado['ruta'] = $ruta;
+            $this->resultado['ruta'] =$ruta;
             return $this->resultado;
 			
 	}
@@ -85,8 +91,19 @@ class CallcenterModelRespuesta extends JModelList
                     ."'1')";
                 $db->setQuery($query);
                 $resul = $db->execute();
-                $respuesta = array('sql'=>$query,'resul'=>$resul);
+                $id = $db->insertid();
+                $respuesta = array('sql'=>$query,'resul'=>$resul,'id'=>$id);
         return $respuesta;
+    }
+    public function cambioEstado($id,$estado){
+        // grabamos por primera vez.
+        			$db = JFactory::getDBO();
+            // Grabamos en local antes de enviar.
+             $query= "UPDATE #__callcenter` SET `estado`='".$estado."' WHERE `id`='".$id."'";
+                $db->setQuery($query);
+                $resul = $db->execute();
+                $respuesta = array('sql'=>$query,'resul'=>$resul);
+    return $respuesta;
 
     }
 	
