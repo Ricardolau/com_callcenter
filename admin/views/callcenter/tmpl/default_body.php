@@ -19,19 +19,19 @@ foreach($this->items as $i => $item): ?>
 			<?php echo $item->created; ?>
 		</td>	
 		<td>
-			<?php echo $item->numeroParticipacion; ?>
+			<?php echo $item->apellidos; ?>
 		</td>
 		<td>
-			<?php echo $item->cantidadJugada; ?>
+			<?php echo $item->nombre; ?>
 		</td>
         <td>
-			<?php echo $item->vendido; ?>
+			<?php echo $item->telefono; ?>
 		</td>
         <td>
-			<?php echo $item->cajero; ?>
+			<?php echo $item->estado; ?>
 		</td>
         <td>
-			<?php echo $item->pagada; ?>
+			<?php echo $item->intentos; ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
