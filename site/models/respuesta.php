@@ -23,20 +23,17 @@ class CallcenterModelRespuesta extends JModelList
             // refresco o ya grabo.
             $session = JFactory::getSession();
             // Controlamos si ya lo grabamos en esta session.
-            if ($session->get('grabado') === NULL)
+            if ($session->get('grabado_id') === NULL)
             {
                 // Grabamos.
                 $g  = $this->grabar($datos);
-                echo '<pre>';
-                echo 'Grabar';
-                echo print_r($g);
-                echo '</pre>';
-                $session->set('grabado',$g['resul']);
-                $id = $g['resul']['id'];
+                $session->set('grabado_id',$g['id']);
+                $id = $g['id'];
             }
-            // Ahora hacemos la peticion por curl
+            // Obtenemos los parametros configuracion del componente.
             $componentParams = $app->getParams('com_callcenter');
             $ruta = $componentParams->get('url_envio');
+            // Ahora hacemos la peticion por curl
             $ch = curl_init($ruta);
             // Especificamos cabecera.
             
@@ -61,17 +58,31 @@ class CallcenterModelRespuesta extends JModelList
             $intentos = $session->get('intentos') + 1;
             $session->set('intentos',$intentos);
             // Si  fue correcta
-            if  (isset($datos['_ok_title'])){
-                if ($datos['_ok_title'] ==='Ok'){
-                // Fue correcta la petición el estado es 'Enviado'
-                    $e = $this->cambioEstado($id,'Enviado');
-                    echo '<pre>';
-                    echo 'Cambio estado';
-                    echo print_r($e);
-                    echo '</pre>';
+            $obj = json_decode($datos['curl']);
+            if  (isset($obj->_ok_title)){
+                if ($obj->_ok_title ==='Ok'){
+                    // Fue correcta la petición
+                    $datos['estado'] ='Enviado';
+                    if (isset($id)){
+                        // La petición fue correcta, pero nosotros no lo grabamos
+                        // el motivo seguramente es porque con la misma
+                        // session envio dos formularios.
+                        $id = $session->get('grabado_id');
+                        $datos['estado'] ='ReEnviado';
+                    }
+                    // El estado es 'Enviado'
+                    $e = $this->cambioEstado($id, $datos['estado']);
+                    $datos['res_estado'] =$e;
                 }
             }
-			$datos['session'] =$session->get('grabado');
+            if (isset($obj->code)){
+                // El servidor responde, pero tuvo alguna incidencia.
+                    // $obj->code ===50030 ;Error del servidor al enviar.. debemos volver enviarla.
+                    // $obj->code ===40001 ;Indica que esta pendiente en el Call Center le llamara en breves.
+                $datos['error'] = $obj->code;
+            }
+			$datos['id_grabado'] =$session->get('grabado_id');
+            $datos['intentos'] =$session->get('intentos');
 			$this->resultado = $datos;
             $this->resultado['ruta'] =$ruta;
             return $this->resultado;
@@ -95,14 +106,18 @@ class CallcenterModelRespuesta extends JModelList
                 $respuesta = array('sql'=>$query,'resul'=>$resul,'id'=>$id);
         return $respuesta;
     }
-    public function cambioEstado($id,$estado){
-        // grabamos por primera vez.
-        			$db = JFactory::getDBO();
-            // Grabamos en local antes de enviar.
-             $query= "UPDATE #__callcenter` SET `estado`='".$estado."' WHERE `id`='".$id."'";
-                $db->setQuery($query);
-                $resul = $db->execute();
-                $respuesta = array('sql'=>$query,'resul'=>$resul);
+    public function cambioEstado($id,$estado,$intentos=0){
+        $db = JFactory::getDBO();
+        // Cambiamos el estado del id.
+        $txtIntentos= '';
+        if ($intentos >0){
+            // Se manda este parametro cuando es un segundo intento.
+            $txtIntentos = " AND intentos='".$intentos."'";
+        }
+            $query= "UPDATE #__callcenter SET `estado`='".$estado."' WHERE `id`='".$id."'".$txtIntentos;
+        $db->setQuery($query);
+        $resul = $db->execute();
+        $respuesta = array('sql'=>$query,'resul'=>$resul);
     return $respuesta;
 
     }

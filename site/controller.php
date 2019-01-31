@@ -14,11 +14,8 @@ class CallcenterController extends JControllerLegacy
 		 * Si le quito = false , da un error ya que no recibe parametro el display.
 		 * */
 		$cachable = true;
-		//programar una vista por defecto si no se establece
     	$input = JFactory::getApplication()->input;
-        // Aquí puedo comprobar si ya envio el formulario y si ...
-       
-            
+         
 		return parent::display($this);
 
 	}
@@ -39,8 +36,21 @@ class CallcenterController extends JControllerLegacy
             $session->set('intentos',1);
         }
 
-        $this->comprobarDatos();
+        if ($session->get('grabado_id'))
+        {
+            // Ya se grabo, por lo que marcamos que es error.
+            $this->resultado['estado']= 'Error';
+            $this->resultado['error'] = 'Tiene que cerrar session, si quiere enviar otro';
+            $aviso = array( 'type' => 'warning',
+                        'texto'  => 'Error 1 submit: '.JText::_('COM_CALLCENTER_CREADA_PENDIENTE_LABEL')
+                );
+            JFactory::getApplication()->enqueueMessage($aviso['texto'], $aviso['type']);
+        } else {
+            // Solo compruebo datos si no esta grabado.
+             $this->comprobarDatos();
+        }
         if ($this->resultado['estado'] !== 'Error') {
+            // No hay error en los datos.
             $this->set('view', 'respuesta');
             // Reseteamos intentos.
             $session->set('intentos',1);
@@ -52,8 +62,20 @@ class CallcenterController extends JControllerLegacy
 		return ;
     }	
 
-    	
+    public function repetir()
+	{
+        // Llega aquí cuando muestra pulsa boton repetir formulario.
+        // Esto sucede cuando en una session se enviar formulario y quiere enviar otro.
+        $session = JFactory::getSession();
+        // Borramos datos session del componente.
+        $session->clear('intentos');
+        $session->clear('grabado_id');
+        $this->set('view', 'callcenter');
+        
+        return;
 
+        
+    }
 	public function comprobarDatos(){
         // Objetivo comprobar si los datos que envia son correctos.
 
