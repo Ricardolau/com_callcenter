@@ -12,7 +12,7 @@ class CallcenterModelCallcenter extends JModelList
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 		// Selecciona algunos campos
-		$query->select('id, nombre, apellidos, observaciones, telefono, estado, intentos');
+		$query->select('id, created, nombre, apellidos, observaciones, telefono, estado, intentos');
 		// de nuestra tabla
 		$query->from('#__callcenter');
 		

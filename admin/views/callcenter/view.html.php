@@ -12,17 +12,6 @@ class CallcenterViewCallcenter extends JViewLegacy
 	
 	function display($tpl = null)
 	{
-		//conseguimos el modelo
-		$model =& $this->getModel();
-		//recogemos el mensaje del modelo y lo pasamos por referencia dspues
-		//~ $mensaje = $model->getMensaje();
-		//~ //uso assignRef para crear referencias que usará el layout (tmpl)
-		//~ $this->assignRef('mensaje',$mensaje);
-		/*
-JPagination es una clase Joomla capaz de gestionar 
-y visualizar objeto paginación.
-*/
-		
 		//es necesario establecerlos para poder usarlos en default...
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');

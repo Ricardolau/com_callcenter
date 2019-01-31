@@ -15,25 +15,25 @@ $campo5 = JText::_( 'COM_CALLCENTER_INTENTOS_LABEL');
 		<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($this->items); ?>);" />
 	</th>
 	<th width="2%">
-		<?php echo  JHTML::_('grid.sort', 'Id', 'id', $listDirn, $listOrder); ?>
+		<?php echo  JHTML::_('grid.sort', 'Id', 'id'); ?>
 	</th>			
 	<th width="2%">
-		<?php echo  JHTML::_('grid.sort', 'Fecha', 'created', $listDirn, $listOrder); ?>
+		<?php echo  JHTML::_('grid.sort', 'Fecha', 'created'); ?>
 	</th>			
 	<th width="5%">
-		<?php echo  JHTML::_('grid.sort', $campo2, 'apellidos', $listDirn, $listOrder); ?>
+		<?php echo  JHTML::_('grid.sort', $campo2, 'apellidos'); ?>
 	</th>
 	<th width="5%">
-		<?php echo  JHTML::_('grid.sort', $campo1, 'nombre', $listDirn, $listOrder); ?>
+		<?php echo  JHTML::_('grid.sort', $campo1, 'nombre'); ?>
 	</th>
     <th width="5%">
-		<?php echo  JHTML::_('grid.sort', $campo3, 'telefono', $listDirn, $listOrder); ?>
+		<?php echo  JHTML::_('grid.sort', $campo3, 'telefono'); ?>
 	</th>
     <th width="5%">
-		<?php echo  JHTML::_('grid.sort', $campo4, 'estado', $listDirn, $listOrder); ?>
+		<?php echo  JHTML::_('grid.sort', $campo4, 'estado'); ?>
 	</th>
      <th width="5%">
-		<?php echo  JHTML::_('grid.sort', $campo5, 'intentos', $listDirn, $listOrder); ?>
+		<?php echo  JHTML::_('grid.sort', $campo5, 'intentos'); ?>
 	</th>
 	
 	
