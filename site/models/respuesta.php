@@ -63,7 +63,7 @@ class CallcenterModelRespuesta extends JModelList
                 if ($obj->_ok_title ==='Ok'){
                     // Fue correcta la petición
                     $datos['estado'] ='Enviado';
-                    if (isset($id)){
+                    if (!isset($id)){
                         // La petición fue correcta, pero nosotros no lo grabamos
                         // el motivo seguramente es porque con la misma
                         // session envio dos formularios.

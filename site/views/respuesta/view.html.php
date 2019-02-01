@@ -20,6 +20,11 @@ class CallcenterViewRespuesta extends JViewLegacy
             print_r($this->resultado);
             echo '</pre>';
         }
+        // Añadimos las texto principal y secundario por defecto, que cuando _ok_title= Ok
+        $this->texto_principal = JText::_('COM_CALLCENTER_RESPUESTA_OK_LABEL');
+        $this->texto_secundario = JText::_('COM_CALLCENTER_RESPUESTA_OK_DESC');
+        
+        
 		//display de la vista
 		parent::display($tpl);
 	}
