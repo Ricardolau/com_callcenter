@@ -65,7 +65,7 @@ class CallcenterViewCallcenter extends JViewLegacy
             $this->form->setValue('firstname','',$this->resultado['firstname']);
             $this->form->setValue('lastname','',$this->resultado['lastname']);
             $this->form->setValue('_customer_number','',$this->resultado['_customer_number']);
-            $this->form->setValue('observaciones','',$this->resultado['observaciones']);
+            $this->form->setValue('message','',$this->resultado['observaciones']);
              
             // Si intentos supera el número de cinco se debe bloquear el formulario.
             // de momento no esta operativo.
@@ -78,8 +78,14 @@ class CallcenterViewCallcenter extends JViewLegacy
             echo 'Debug de estado en views/callcenter:';
             print_r($estado);
             echo 'Intentos:'.$session->get('intentos').'<br/>';
-            echo 'Id Grabado:'.$session->get('grabado_id');
+            echo 'Id Grabado:'.$session->get('grabado_id').'<br/>';
+            echo 'Mostrar Observaciones:'.$params->get('observaciones');
             echo '</pre>';
+        }
+
+        // Si parametro de mostrar observaciones esta en 0 es que no se muestra.
+        if ($params->get('observaciones')=== '0'){
+            $this->form->setFieldAttribute('message','type','hidden');
         }
 
         		//display de la vista
