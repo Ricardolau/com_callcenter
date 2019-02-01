@@ -54,9 +54,7 @@ class CallcenterModelRespuesta extends JModelList
             //recogemos la respuesta
             $datos['curl'] = curl_exec ($ch);
             curl_close($ch); 
-            // De momento no esta operativo el repetir.            
-            $intentos = $session->get('intentos') + 1;
-            $session->set('intentos',$intentos);
+            
             // Si  fue correcta
             $obj = json_decode($datos['curl']);
             if  (isset($obj->_ok_title)){
@@ -83,6 +81,10 @@ class CallcenterModelRespuesta extends JModelList
             }
 			$datos['id_grabado'] =$session->get('grabado_id');
             $datos['intentos'] =$session->get('intentos');
+            // Ahora añadimos un intento a session ya que si volvemos , tenemos que tenerlo en cuentas..
+            // De momento no esta operativo el repetir.            
+            $intentos = $session->get('intentos') + 1;
+            $session->set('intentos',$intentos);
 			$this->resultado = $datos;
             $this->resultado['ruta'] =$ruta;
             return $this->resultado;
