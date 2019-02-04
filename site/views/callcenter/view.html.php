@@ -65,8 +65,9 @@ class CallcenterViewCallcenter extends JViewLegacy
             $this->form->setValue('firstname','',$this->resultado['firstname']);
             $this->form->setValue('lastname','',$this->resultado['lastname']);
             $this->form->setValue('_customer_number','',$this->resultado['_customer_number']);
-            $this->form->setValue('message','',$this->resultado['observaciones']);
-             
+            if ($params->get('observaciones')=== '1'){
+                $this->form->setValue('message','',$this->resultado['message']);
+            }
             // Si intentos supera el número de cinco se debe bloquear el formulario.
             // de momento no esta operativo.
            

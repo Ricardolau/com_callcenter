@@ -11,7 +11,7 @@ JHtml::_('behavior.tooltip');
         
                
         	<?php
-            if ($this->resultado['error']){
+            if (isset($this->resultado['error'])){
                 // hubo un error por lo que mostramos datos del error
                 $error = $this->resultado['error'];
                 if ( $error === 50030 ){
