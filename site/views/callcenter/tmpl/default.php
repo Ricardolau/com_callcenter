@@ -5,8 +5,8 @@ $tp= $this->texto_principal
 
 <div class="codigotitulo">
 <?php 
-    echo '<h1>'.$tp.'</h1>';
-    echo '<p>'.$this->texto_secundario.'</p>';
+    echo '<h1 style="text-align: center;">'.$tp.'</h1>';
+    echo '<p style="text-align: center;">'.$this->texto_secundario.'</p>';
 ?>
 
 <div class="formulario" style="display: table;margin: 0 auto;">
@@ -19,7 +19,7 @@ $tp= $this->texto_principal
         break;
         
         case JText::_('COM_CALLCENTER_FUERAHORARIO_LABEL'):
-            echo ' Debería mostrar el horario....';
+            echo  '<h2>'.JText::_('COM_CALLCENTER_HORARIO').'</h2>';
         break;
 
 

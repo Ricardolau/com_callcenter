@@ -32,7 +32,10 @@ JHtml::_('behavior.tooltip');
             <?php
             }
             ?>
-			</div>
+            <div class="separador"></div>
+            <div>
+               <?php echo JText::_('COM_CALLCENTER_PRIVACIDAD'); ?> 
+            </div>
 		</fieldset>
 	</form>
 </div>
